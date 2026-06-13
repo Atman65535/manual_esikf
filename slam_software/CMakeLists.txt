@@ -24,8 +24,11 @@ include_directories(./inc/)
 
 add_library(common
   ./src/so3_math.cpp
+  ./src/dataloader.cpp
+  ./src/esikf.cpp
+  ./src/lidar_processor.cpp
 )
-target_include_directories(common
+target_include_directories(common PRIVATE
   ${PCL_INCLUDE_DIRS}
   ${Eigen3_INCLUDE_DIRS}
 )

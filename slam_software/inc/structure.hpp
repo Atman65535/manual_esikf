@@ -1,8 +1,11 @@
 #pragma once
-#include <cstdint>
 #include <Eigen/Core>
 #include <pcl/point_types.h>
 #include <pcl/point_cloud.h>
+
+// revision suggestions
+// 1. remove this file.
+// 2. Msgs should stored in dataloader, status should stored in KF, and features should be defined in lidar processor.
 
 typedef pcl::PointXYZINormal PointType;
 
@@ -10,33 +13,29 @@ typedef Eigen::Vector3d V3D;
 typedef Eigen::Vector3f V3F;
 typedef Eigen::Matrix3d M3D;
 
-struct IMUMsg {
-    uint64_t timestamp;    //us
-    Eigen::Vector3d angular_velocity;    // rad/s
-    Eigen::Vector3d linear_acceleration;    // m/s^2
+// struct IMUMsg {
+//     uint64_t timestamp;    //us
+//     Eigen::Vector3d angular_velocity;    // rad/s
+//     Eigen::Vector3d linear_acceleration;    // m/s^2
 
-    IMUMsg() {
-        timestamp = 0;
-        angular_velocity = {0, 0, 0};
-        linear_acceleration = {0, 0, 0};
-    }
+//     IMUMsg() {
+//         timestamp = 0;
+//         angular_velocity = {0, 0, 0};
+//         linear_acceleration = {0, 0, 0};
+//     }
     
-    IMUMsg(const IMUMsg& i) {
-        timestamp = i.timestamp;
-        angular_velocity = i.angular_velocity;
-        linear_acceleration = i.linear_acceleration;
-    }
-};
+//     IMUMsg(const IMUMsg& i) {
+//         timestamp = i.timestamp;
+//         angular_velocity = i.angular_velocity;
+//         linear_acceleration = i.linear_acceleration;
+//     }
+// };
 
-struct LiDARMsg {
-    uint64_t starttime;    // us, the global time of the first pnt;
-    uint64_t endtime;
-    pcl::PointCloud<PointType>::Ptr cloud_ptr;    // here we store points. The relative time is stored in curvature.
-};
-
-struct FeaturePoint {
-    
-};
+// struct LiDARMsg {
+//     uint64_t starttime;    // us, the global time of the first pnt;
+//     uint64_t endtime;
+//     pcl::PointCloud<PointType>::Ptr cloud_ptr;    // here we store points. The relative time is stored in curvature.
+// };
 
 struct StatusTangent {
     V3D dtheta;    // \in so(3) 
@@ -80,15 +79,15 @@ struct StatusManifold {
     }
 };
 
-struct PlanarFeature {
-    double residual;
-    V3D normal;
-    V3D p_loc;  // point local_frame
+// struct PlanarFeature {
+//     double residual;
+//     V3D normal;
+//     V3D p_loc;  // point local_frame
     
-};
+// };
 
-struct EdgeFeature {
-    V3D residual;
-    V3D direction;
-    V3D p_loc;
-};
+// struct EdgeFeature {
+//     V3D residual;
+//     V3D direction;
+//     V3D p_loc;
+// };
