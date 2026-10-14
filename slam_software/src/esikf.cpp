@@ -28,7 +28,6 @@ KF::KF(const nlohmann::json kf_cfg) {
 
     F.setZero();
     FQ.setZero();
-    // H.setZero();
     
 }
 
@@ -44,8 +43,6 @@ bool KF::init(const IMUMsg& msg) {
     init_g += msg.linear_acceleration;
     init_bw += msg.angular_velocity;
 
-    // rodrigus formula calc init R and bw
-    // std::cout << init_cnt << std::endl;
     if (init_cnt == max_init_cnt) {
         
         if (nomial_status.bw != V3D::Zero() || nomial_status.R != M3D::Identity()) {
@@ -260,16 +257,16 @@ void KF::knn_residual_calc(pcl::PointCloud<PointType>::Ptr frame_loc,
             
             // line feature assign
             // std::cout << ratio << " " << std::endl;
-            // if (ratio > 4) {
-            //     EdgeFeature fea;
-            //     fea.direction = solver.eigenvectors().col(2);
-            //     V3D map_point(mean_point.x, mean_point.y, mean_point.z);
-            //     fea.p_loc = V3D(frame_loc->points[i].x, frame_loc->points[i].y, frame_loc->points[i].z);
-            //     fea.residual = edge_residual(fea.direction, cur_world, map_point);
-            //     if (fea.residual.squaredNorm() < 0.25) {
-            //         edge_buf.push_back(fea);
-            //     }
-            // }
+            if (ratio > 4) {
+                EdgeFeature fea;
+                fea.direction = solver.eigenvectors().col(2);
+                V3D map_point(mean_point.x, mean_point.y, mean_point.z);
+                fea.p_loc = V3D(frame_loc->points[i].x, frame_loc->points[i].y, frame_loc->points[i].z);
+                fea.residual = edge_residual(fea.direction, cur_world, map_point);
+                if (fea.residual.squaredNorm() < 0.25) {
+                    edge_buf.push_back(fea);
+                }
+            }
             // planar
             if (ratio < 4) {
                 PlanarFeature fea;

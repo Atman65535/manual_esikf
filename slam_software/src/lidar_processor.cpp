@@ -132,19 +132,18 @@ bool LiDARProcessor::is_ready() {
 }
 
 void LiDARProcessor::update_global_map(pcl::PointCloud<PointType>::Ptr new_cloud_glob) {
-    // *global_map += *new_cloud_glob;
-    // global_map->clear();
-    // slide_window.push_back(new_cloud_glob);
-    // if (slide_window.size() > window_size) {
-    //     slide_window.pop_front();
-    // }
-    // for (size_t i = 0; i < slide_window.size(); i++) {
-    //     *global_map += *slide_window[i];
-    // }
-    // vg.setInputCloud(global_map);
-    // vg.setLeafSize(vox_size, vox_size, vox_size);
+    global_map->clear();
+    slide_window.push_back(new_cloud_glob);
+    if (slide_window.size() > window_size) {
+        slide_window.pop_front();
+    }
+    for (size_t i = 0; i < slide_window.size(); i++) {
+        *global_map += *slide_window[i];
+    }
+    vg.setInputCloud(global_map);
+    vg.setLeafSize(vox_size, vox_size, vox_size);
 
-    // vg.filter(*global_map);
+    vg.filter(*global_map);
     kdtree.setInputCloud(global_map);
 }
 
