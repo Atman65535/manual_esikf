@@ -1,0 +1,1 @@
+/home/anatman/workspace/slam_ws/build/odom_to_chassis/ament_cmake_environment_hooks/local_setup.bash

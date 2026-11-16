@@ -1,5 +1,8 @@
 # Manual ESIKF
 
+## About ROS workspace
+- I want to build ikd tree, fastlio by myself.
+
 # First Attempt: V1
 This repository contains two parts:
 1. `slam_hardware`, a stm32 cubeMX project for lower machine.
