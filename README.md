@@ -1,5 +1,6 @@
-# SLAM LAB
+# Manual ESIKF
 
+# First Attempt: V1
 This repository contains two parts:
 1. `slam_hardware`, a stm32 cubeMX project for lower machine.
 2. `slam_software`, pure cpp project for upper level algorithm.
